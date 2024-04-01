@@ -21,3 +21,6 @@ lspconfig.tsserver.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
+
+
+lspconfig.matlab_ls.setup{}
