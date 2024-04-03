@@ -15,12 +15,21 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- typescript
+-- typescript (provided by NVChad)
 lspconfig.tsserver.setup {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
 }
 
-
-lspconfig.matlab_ls.setup{}
+-- MATLAB
+lspconfig.matlab_ls.setup{
+  settings = {
+      MATLAB = {
+        indexWorkspace = true,
+        installPath = '',
+        matlabConnectionTiming = 'onStart',
+        telemetry = false,
+      }
+    }
+}
