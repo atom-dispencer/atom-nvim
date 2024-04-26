@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "matlab_ls", "pyright" }
+local servers = { "matlab_ls", "pylsp" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -35,6 +35,4 @@ lspconfig.matlab_ls.setup{
 }
 
 -- Python
-lspconfig.pyright.setup {
-  filetypes = {"python"}
-}
+lspconfig.pylsp.setup {}

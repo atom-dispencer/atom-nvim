@@ -8,4 +8,12 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map("n", "config", ":e ~/AppData/Local/nvim/")
 
+map("n", "<leader>ra", function()
+  vim.lsp.buf.rename()
+end)
+
+map("n", "<C-F>", function()
+  require("conform").format()
+end)
+
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
