@@ -21,7 +21,8 @@ return {
    	opts = {
    		ensure_installed = {
    			"lua-language-server", "stylua", "luacheck",
-        "matlab-language-server"
+        "matlab-language-server",
+        "pylint", "pyright"
    		},
    	},
    },
@@ -31,6 +32,9 @@ return {
    	opts = {
    		ensure_installed = {
    			"vim", "lua", "vimdoc",
+        "matlab",
+        "java",
+        "python",
 --        "html", "css"
    		},
    	},

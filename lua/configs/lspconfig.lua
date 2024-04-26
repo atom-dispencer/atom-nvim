@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls" }
+local servers = { "matlab_ls", "pyright" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -16,20 +16,25 @@ for _, lsp in ipairs(servers) do
 end
 
 -- typescript (provided by NVChad)
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+-- lspconfig.tsserver.setup {
+--   on_attach = on_attach,
+--   on_init = on_init,
+--   capabilities = capabilities,
+-- }
 
 -- MATLAB
 lspconfig.matlab_ls.setup{
   settings = {
-      MATLAB = {
-        indexWorkspace = true,
-        installPath = '',
-        matlabConnectionTiming = 'onStart',
-        telemetry = false,
-      }
+    MATLAB = {
+      indexWorkspace = true,
+      installPath = '',
+      matlabConnectionTiming = 'onStart',
+      telemetry = false,
     }
+  }
+}
+
+-- Python
+lspconfig.pyright.setup {
+  filetypes = {"python"}
 }
