@@ -69,7 +69,6 @@ M.ui = {
       border = "single",
     },
   },
-} 
-
+}
 
 return M
