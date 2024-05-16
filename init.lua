@@ -1,7 +1,6 @@
 
 -- Set up random Vim options
-require("options")
-require("keymaps")
+require("vimoptions")
 
 -- Set up Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -17,3 +16,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
+
+-- Set up keymaps (may require plugin access)
+require("keymaps")
