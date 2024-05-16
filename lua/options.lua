@@ -1,5 +1,3 @@
-print("options.lua")
-
 -- vim.o.shell='powershell'
 vim.wo.relativenumber = true
 vim.opt.scrolloff = 7

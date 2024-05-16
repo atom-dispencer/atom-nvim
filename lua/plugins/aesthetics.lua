@@ -1,5 +1,3 @@
-print("plugins/aesthetics.lua")
-
 return {
 	{
 		"ellisonleao/gruvbox.nvim",

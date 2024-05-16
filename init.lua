@@ -1,6 +1,7 @@
 
 -- Set up random Vim options
 require("options")
+require("keymaps")
 
 -- Set up Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
