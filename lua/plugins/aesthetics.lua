@@ -35,10 +35,10 @@ return {
             "██║██╔══██║   ██║   ██║   ██║██║╚██╔╝██║   ██║   ██║██╔═██╗ ",
             "██║██║  ██║   ██║   ╚██████╔╝██║ ╚═╝ ██║██╗╚██████╔╝██║  ██╗",
             "╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝",
-           },
-           highlight = "Statement",
-           default_color = "",
-           oldfiles_amount = 0,
+          },
+          highlight = "Statement",
+          default_color = "",
+          oldfiles_amount = 0,
         },
         -- name which will be displayed and command
         section_body = {

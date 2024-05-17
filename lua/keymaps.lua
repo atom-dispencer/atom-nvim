@@ -4,8 +4,8 @@ local map = vim.keymap.set
 -- Misc
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-map("n", "config", ":e ~/AppData/Local/nvim/")
-map("n", "<C-s>", ":update<cr>")
+map("n", "config", "<CMD>Oil ~/AppData/Local/nvim/<CR>")
+map("n", "<C-s>", "<CMD>update<CR>", { desc = "Save (Update) the current buffer.", silent = true })
 
 
 -- Telescope
