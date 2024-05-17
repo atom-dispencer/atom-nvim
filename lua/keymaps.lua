@@ -18,6 +18,7 @@ map('n', '<leader>fh', telescope.help_tags, {})
 
 -- Oil
 map("n", "<C-n>", "<CMD>Oil<CR>")
+-- C-c is the default closing map
 
 
 -- Splits
