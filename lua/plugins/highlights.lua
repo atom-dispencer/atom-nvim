@@ -4,16 +4,6 @@
 return {
 
 
-  -- 'Virtual text' indentation guides
-  --  Currently just errors: utils.lua:428: attempt to call field 'iter' (a nil value)
-  {
-    enabled = false,
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {}
-  },
-  
-
   -- INFO Highlight comments like this!
   {
     "folke/todo-comments.nvim",

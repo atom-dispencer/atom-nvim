@@ -28,11 +28,11 @@ map("n", "<CR>", function()
 
 
 -- Telescope
-local telescope = require('telescope.builtin')
-map('n', '<leader>ff', telescope.find_files, { desc = "Telescope: Find files." })
-map('n', '<leader>fg', telescope.live_grep, { desc = "Telescope: Live grep." })
-map('n', '<leader>fb', telescope.buffers, { desc = "Telescope: Find buffer." })
-map('n', '<leader>fh', telescope.help_tags, { desc = "Telescope: Search help tags." })
+local telescope = require("telescope.builtin")
+map("n", "<leader>ff", telescope.find_files, { desc = "Telescope: Find files." })
+map("n", "<leader>fg", telescope.live_grep, { desc = "Telescope: Live grep." })
+map("n", "<leader>fb", telescope.buffers, { desc = "Telescope: Find buffer." })
+map("n", "<leader>fh", telescope.help_tags, { desc = "Telescope: Search help tags." })
 
 
 
@@ -48,13 +48,13 @@ map("n", "<C-n>", "<CMD>Oil<CR>", { desc = "Open Oil at this buffer." })
 --   - Close buffers on left/right, un/pinned, not/current
 --   - Sort buffers by number, directory, language, name, etc.
 
-map('n', '<Tab>', '<CMD>BufferNext<CR>', { desc = "Barbar: Next buffer.", noremap = true, silent = true })
-map('n', '<S-Tab>', '<CMD>BufferPrevious<CR>', { desc = "Barbar: Previous buffer.", noremap = true, silent = true })
-map('n', '<A->>', '<CMD>BufferMoveNext<CR>', { desc = "Barbar: Shuffle buffer right.", noremap = true, silent = true })
-map('n', '<A-<>', '<CMD>BufferMovePrevious<CR>', { desc = "Barbar: Shuffle buffer left.", noremap = true, silent = true })
-map('n', '<A-p>', '<CMD>BufferPin<CR>', { desc = "Barbar: Pin buffer.", noremap = true, silent = true })
-map('n', '<LEADER>x', '<CMD>BufferClose<CR>', { desc = "Barbar: Close buffer.", noremap = true, silent = true })
-map('n', '<C-p>', '<CMD>BufferPick<CR>', { desc = "Barbar: Magic buffer picker.", noremap = true, silent = true })
+map("n", "<Tab>", "<CMD>BufferNext<CR>", { desc = "Barbar: Next buffer.", noremap = true, silent = true })
+map("n", "<S-Tab>", "<CMD>BufferPrevious<CR>", { desc = "Barbar: Previous buffer.", noremap = true, silent = true })
+map("n", "<A->>", "<CMD>BufferMoveNext<CR>", { desc = "Barbar: Shuffle buffer right.", noremap = true, silent = true })
+map("n", "<A-<>", "<CMD>BufferMovePrevious<CR>", { desc = "Barbar: Shuffle buffer left.", noremap = true, silent = true })
+map("n", "<A-p>", "<CMD>BufferPin<CR>", { desc = "Barbar: Pin buffer.", noremap = true, silent = true })
+map("n", "<LEADER>x", "<CMD>BufferClose<CR>", { desc = "Barbar: Close buffer.", noremap = true, silent = true })
+map("n", "<C-p>", "<CMD>BufferPick<CR>", { desc = "Barbar: Magic buffer picker.", noremap = true, silent = true })
 
 
 
