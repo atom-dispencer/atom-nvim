@@ -21,7 +21,16 @@ local lsp_configurations = {
     }
   },
 
-  lua_ls = {},
+  lua_ls = {
+    -- Configure for Neodev
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace"
+        }
+      }
+    }
+  },
 
   pylsp = {},
 }
@@ -58,11 +67,9 @@ end
 --   - Configure/Set it up
 local configure_nvim_lspconfig = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+  capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
   local lspconfig = require("lspconfig")
-
-  -- WARN All setup({}) here must pass a table, even if empty
 
   for server, config in pairs(lsp_configurations) do
     config["capabilities"] = capabilities
@@ -70,6 +77,12 @@ local configure_nvim_lspconfig = function()
     -- config.on_init = on_init
     lspconfig[server].setup(config)
   end
+end
+
+
+-- Must be BEFORE lspconfig
+local configure_neodev = function()
+  require("neodev").setup({})
 end
 
 
@@ -91,7 +104,12 @@ return {
           "williamboman/mason.nvim",
           config = configure_mason,
         }
-      }
+      },
+
+      {
+        "folke/neodev.nvim",
+        config = configure_neodev
+      },
     }
-  }
+  },
 }

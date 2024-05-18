@@ -14,7 +14,7 @@ map("n", "<C-s>", "<CMD>update<CR>", { desc = "Save (Update) the current buffer.
 map("n", "<CR>", function()
   local keys = ""
 
-  if vim.fn.col(".") == vim.fn.col("$")-1 then
+  if vim.fn.col(".") == vim.fn.col("$") - 1 then
     keys = "o<ESC>"
   else
     keys = "i<CR><ESC>"
