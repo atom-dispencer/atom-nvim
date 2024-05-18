@@ -3,23 +3,18 @@
 --  tab and command management.
 
 return {
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 1000
-      require("which-key").setup({
-        -- Can add custom mappings here
-      })
-    end
-  },
+
+  
+  -- Footer line 
   {
     "tjdevries/express_line.nvim",
     config = function()
       require("el").setup({})
     end
   },
+
+
+  -- Tabline
   {
     'romgrk/barbar.nvim',
     dependencies = {
