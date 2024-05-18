@@ -2,7 +2,8 @@
 
 vim.g.mapleader = " "
 
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.scrolloff = 7
 -- vim.opt.colorcolumn = "100"  -- Disabled because it interferes with the startup screen
 

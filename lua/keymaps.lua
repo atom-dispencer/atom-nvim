@@ -22,14 +22,14 @@ map("n", "<CR>", function()
 
   keys = vim.api.nvim_replace_termcodes(keys, false, false, true)
   vim.fn.feedkeys(keys)
-  end
-, { desc = "Split line" })
+end, { desc = "Split line" })
 
 
 
 -- Telescope
 local telescope = require("telescope.builtin")
 map("n", "<leader>ff", telescope.find_files, { desc = "Telescope: Find files." })
+map("n", "<leader>fz", telescope.current_buffer_fuzzy_find, { desc = "Telescope: Fuzzy find in this buffer." })
 map("n", "<leader>fg", telescope.live_grep, { desc = "Telescope: Live grep." })
 map("n", "<leader>fb", telescope.buffers, { desc = "Telescope: Find buffer." })
 map("n", "<leader>fh", telescope.help_tags, { desc = "Telescope: Search help tags." })
@@ -67,10 +67,19 @@ map("n", "<m-l>", "<c-w>5>", { desc = "Resize pane: 5>" })
 
 
 -- LSP
-map("n", "<leader>ra", function()
-  vim.lsp.buf.rename()
-end, { desc = "LSP: Rename" })
+map("n", 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' })
+map("n", 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' })
+map("n", 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation' })
+map("n", '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition' })
+map("n", '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols' })
+map("n", '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols' })
+map("n", '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
+map("n", '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
+map("n", 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
+map("n", 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 
+
+-- Formatting
 map("n", "<C-F>", function()
   require("conform").format()
 end, { desc = "Reformat buffer" })
