@@ -68,6 +68,7 @@ map("n", "<m-l>", "<c-w>5>", { desc = "Resize pane: 5>" })
 
 -- LSP
 map("n", 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' })
+map("n", 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 map("n", 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' })
 map("n", 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation' })
 map("n", '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition' })
@@ -76,7 +77,6 @@ map("n", '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbol
 map("n", '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
 map("n", '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
 map("n", 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
-map("n", 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 
 
 -- Formatting
