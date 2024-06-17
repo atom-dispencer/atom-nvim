@@ -23,11 +23,11 @@ return {
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           -- Nvim native
-          "vim", "vimdoc", "lua", 
+          "vim", "vimdoc", "lua",
           -- Markup & comments
           "comment", "yaml", "markdown", "json", "xml",
           -- Languages
-          "python", "java"
+          "python", "java", "elixir", "eex",
         },
 
         -- Do/not install synchronously

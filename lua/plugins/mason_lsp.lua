@@ -1,15 +1,49 @@
 -- LSP configuration
 
-local mason_ensure_installed = {
-  "matlab-language-server",
-  "python-lsp-server",
-  "lua-language-server",
-  "stylua",
-  "luacheck",
-  "black",
+--
+-- Overall control for the Mason tools installed
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+--
+local TOOLER_CONFIG = {
+  ensure_installed = {
+    "matlab-language-server",
+    "python-lsp-server", "black",
+    "lua-language-server", "stylua", "luacheck",
+    "elixir-ls",
+  },
+
+  -- Name integrations with the rest of the Mason ecosystem.
+  -- I only want to use Mason package names for consistency, so disabled them
+  integrations = {
+    ['mason-lspconfig'] = false,
+    ['mason-null-ls'] = false,
+    ['mason-nvim-dap'] = false,
+  }
 }
 
-local lsp_configurations = {
+--
+-- Mason's "ensure_installed" list.
+--
+local MASONLSP_CONFIG = {}
+
+
+--
+-- Configuration for Mason itself
+--
+local MASON_CONFIG = {
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "",
+      package_uninstalled = ""
+    }
+  }
+}
+
+--
+-- Configuration options for LSPs
+--
+local LSP_CONFIG = {
   matlab_ls = {
     settings = {
       MATLAB = {
@@ -33,58 +67,34 @@ local lsp_configurations = {
   },
 
   pylsp = {},
+  elixirls = {},
 }
 
 
--- mason
-local configure_mason = function()
-  require("mason").setup({
-    ui = {
-      icons = {
-        package_installed = "✓",
-        package_pending = "",
-        package_uninstalled = ""
-      }
-    },
-
-    ensure_installed = mason_ensure_installed
-  })
-end
-
-
--- mason_lspconfig
-local configure_mason_lspconfig = function()
-  -- Setup {} must be present, even if empty.
-  require("mason-lspconfig").setup({})
-end
-
-
--- nvim_lspconfig
 --
--- For each LSP server we must:
---   - Make sure it's installed
---   - Set up its attachment and capabilities
---   - Configure/Set it up
-local configure_nvim_lspconfig = function()
+-- Get all of the custom handlers for setting up LSP servers.
+-- If all you need is a bunch of options, pass them into the LSP_CONFIG table instead of messing with this.
+-- If you need to have a custom *behaviour* or different loading *flow*, add an entry here, but remember to add capabilities.
+--
+local get_custom_handlers = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-  local lspconfig = require("lspconfig")
+  return {
 
-  for server, config in pairs(lsp_configurations) do
-    config["capabilities"] = capabilities
-    -- config.on_attach = on_attach
-    -- config.on_init = on_init
-    lspconfig[server].setup(config)
-  end
+    -- Default handler
+    function(server_name)
+      local config = LSP_CONFIG[server_name]
+
+      config["capabilities"] = capabilities
+      -- config.on_attach = on_attach
+      -- config.on_init = on_init
+      require("lspconfig")[server_name].setup(config)
+    end,
+    -- Optionally, can add custom handlers here by key.
+    -- See mason-lspconfig-dynamic-server-setup
+  }
 end
-
-
--- Must be BEFORE lspconfig
-local configure_neodev = function()
-  require("neodev").setup({})
-end
-
 
 -- Return the composite version for Lazy
 -- Loading order must be Mason > Mason LSP conf > Nvim LSP conf
@@ -93,23 +103,33 @@ return {
   -- Neovim's default LSP configurations
   {
     "neovim/nvim-lspconfig",
-    config = configure_nvim_lspconfig,
 
     dependencies = {
       {
         "williamboman/mason-lspconfig.nvim",
-        config = configure_mason_lspconfig,
+        config = function()
+          -- Setup {} must be present, even if empty.
+          require("mason-lspconfig").setup(MASONLSP_CONFIG)
+          require("mason-lspconfig").setup_handlers(get_custom_handlers())
+        end,
 
         dependencies = {
-          "williamboman/mason.nvim",
-          config = configure_mason,
+          {
+            "williamboman/mason.nvim",
+            config = function() require("mason").setup(MASON_CONFIG) end,
+          },
+          {
+            "folke/neodev.nvim",
+            config = function() require("neodev").setup({}) end
+          },
         }
-      },
-
-      {
-        "folke/neodev.nvim",
-        config = configure_neodev
-      },
+      }
     }
   },
+
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function() require("mason-tool-installer").setup(TOOLER_CONFIG) end
+  }
 }
