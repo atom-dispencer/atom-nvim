@@ -17,9 +17,6 @@ local TOOLER_CONFIG = {
 		"luacheck",
 		-- Elixir
 		"elixir-ls",
-		-- Assembly
-		"asm-lsp",
-		"asmfmt",
 	},
 
 	-- Name integrations with the rest of the Mason ecosystem.
