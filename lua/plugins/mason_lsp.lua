@@ -92,6 +92,13 @@ local get_custom_handlers = function()
 		function(server_name)
 			local config = LSP_CONFIG[server_name]
 
+			if config == nil then
+				print("Nil LSP config entry for " .. server_name)
+				print(" > Make sure its installed AND configured.")
+				print(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
+				return
+			end
+
 			config["capabilities"] = capabilities
 			-- config.on_attach = on_attach
 			-- config.on_init = on_init
@@ -142,6 +149,7 @@ return {
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-tool-installer").setup(TOOLER_CONFIG)
+			vim.fn.execute("MasonToolsClean", true)
 		end,
 	},
 }
