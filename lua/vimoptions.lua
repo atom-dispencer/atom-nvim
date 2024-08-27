@@ -10,3 +10,5 @@ vim.opt.scrolloff = 7
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+
+vim.opt.fileencoding = "utf-8"

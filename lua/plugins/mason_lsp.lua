@@ -15,8 +15,11 @@ local TOOLER_CONFIG = {
 		"lua-language-server",
 		"stylua",
 		"luacheck",
-		-- Elixir
-		"elixir-ls",
+		-- Haskell
+		"haskell-language-server",
+		"ormolu",
+		"hlint",
+		"haskell-debug-adapter",
 	},
 
 	-- Name integrations with the rest of the Mason ecosystem.
@@ -74,7 +77,7 @@ local LSP_CONFIG = {
 
 	pylsp = {},
 	asm_lsp = {},
-	elixirls = {},
+	hls = {},
 }
 
 --
