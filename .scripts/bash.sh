@@ -1,7 +1,15 @@
 #!/bin/bash
 sudo apt-get update
 
-# Make a symlink to point to my dotfile
-rm ~/.bashrc
-ln -s ~/.dotfiles/.bashrc ~/.bashrc
+#
+# Install Oh My Bash
+#
 
+# Remove old configuration
+rm /home/atom/.oh-my-bash/ -r
+rm ~/.bashrc
+rm ~/.bash_profile
+
+# Installation remakes its files
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+cp --remove-destination ../template.bashrc ~/.bashrc
