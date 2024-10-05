@@ -1,3 +1,10 @@
+#
+# 
+# Template to configure BASH.
+# This file is copied into ~/.bashrc, replacing it.
+# It's a mixture of the default OhMyBash .bashrc, with my customisations for OMB, plus my extra configuration at the bottom.
+# 
+#
 
 # Enable the subsequent settings only in interactive sessions
 case $- in
