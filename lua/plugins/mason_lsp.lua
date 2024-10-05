@@ -1,26 +1,12 @@
 -- LSP configuration
+local languages = require("../languages")
 
 --
 -- Overall control for the Mason tools installed
 -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 --
 local TOOLER_CONFIG = {
-	ensure_installed = {
-		-- MATLAB
-		"matlab-language-server",
-		-- Python
-		"python-lsp-server",
-		"black",
-		-- Lua
-		"lua-language-server",
-		"stylua",
-		"luacheck",
-		-- Haskell
-		"haskell-language-server",
-		"ormolu",
-		"hlint",
-		"haskell-debug-adapter",
-	},
+	ensure_installed = languages.MasonEnsureInstalled,
 
 	-- Name integrations with the rest of the Mason ecosystem.
 	-- I only want to use Mason package names for consistency, so disabled them
@@ -52,33 +38,7 @@ local MASON_CONFIG = {
 --
 -- Configuration options for LSPs
 --
-local LSP_CONFIG = {
-	matlab_ls = {
-		settings = {
-			MATLAB = {
-				indexWorkspace = true,
-				installPath = "",
-				matlabConnectionTiming = "onStart",
-				telemetry = false,
-			},
-		},
-	},
-
-	lua_ls = {
-		-- Configure for Neodev
-		settings = {
-			Lua = {
-				completion = {
-					callSnippet = "Replace",
-				},
-			},
-		},
-	},
-
-	pylsp = {},
-	asm_lsp = {},
-	hls = {},
-}
+local LSP_CONFIG = languages.MasonLspConfig
 
 --
 -- Get all of the custom handlers for setting up LSP servers.

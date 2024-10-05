@@ -1,4 +1,5 @@
 -- Text formatting. Enough said.
+local languages = require("../languages")
 
 return {
 
@@ -23,11 +24,7 @@ return {
 				},
 
 				-- Formatters configured per file-type
-				formatters_by_ft = {
-					lua = { "stylua" },
-					python = { "isort", "black" },
-					elixir = { "mix" }, -- Uses the built-in 'mix format' task (I think ElixirLS expands on that task as well)
-				},
+				formatters_by_ft = languages.ConformByFt,
 			})
 		end,
 	},
