@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Clone configuration
+mkdir ~/.dotfiles/nvim/
+git clone https://github.com/atom-dispencer/atom-nvim ~/.dotfiles/nvim
+ln -s ~/.dotfiles/nvim ~/.config/nvim
+
+# Neovim itself
+sudo apt-get -y install neovim
+
+# Core dependencies
+sudo apt-get -y install gcc             # To self compile basically anything
+sudo apt-get -y install python3         # Because python is everywhere
+sudo apt-get -y install python3-venv
+sudo apt-get -y install unzip           # For many mason packages
+sudo apt-get -y install luarocks        # Needed for lua language server
+sudo apt-get -y install npm             # Needed for some mason packages (incl matlab)
