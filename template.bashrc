@@ -156,3 +156,6 @@ source "$OSH"/oh-my-bash.sh
 #
 export BROWSER=explorer.exe          # Browser integration
 export GPG_TTY=$(tty)                # GPG key signing for Git
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github
