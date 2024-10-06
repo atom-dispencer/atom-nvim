@@ -6,7 +6,7 @@ sudo apt-get update
 #
 
 # Remove old configuration
-rm /home/atom/.oh-my-bash/ -r
+rm ~/.oh-my-bash/ -r
 rm ~/.bashrc
 rm ~/.bash_profile
 
