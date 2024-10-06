@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Clone configuration
-mkdir ~/.dotfiles/nvim/
-git clone https://github.com/atom-dispencer/atom-nvim ~/.dotfiles/nvim
+mkdir ~/.config
 ln -s ~/.dotfiles/nvim ~/.config/nvim
 
 # Neovim itself

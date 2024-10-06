@@ -11,5 +11,5 @@ rm ~/.bashrc
 rm ~/.bash_profile
 
 # Installation remakes its files
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh) --unattended"
 cp --remove-destination ../template.bashrc ~/.bashrc
