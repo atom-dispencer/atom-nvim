@@ -21,7 +21,84 @@ map("n", "<CR>", function()
 
 	keys = vim.api.nvim_replace_termcodes(keys, false, false, true)
 	vim.fn.feedkeys(keys)
-end, { desc = "Split line" })
+end, { desc = "Split line", silent = true })
+
+-- Replace default visual-in-word with my custom version
+-- vim.keymap.del("n", "viw")
+
+local function find_chars_in_current_line()
+	local line = vim.api.nvim_get_current_line()
+	local char = vim.fn.getcharstr()
+
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local cursor_col = cursor_pos[2]
+
+	local start_pos = nil
+	local end_pos = nil
+
+	-- If the cursor is at the start of the line
+	if cursor_col == 0 then
+		print("Start")
+		start_pos = 0
+		end_pos = line:sub(2, line:len()):find(char)
+
+	-- If the cursor is at the end of the line
+	elseif cursor_col == line:len() - 1 then
+		print("End")
+		start_pos = line:reverse():sub(2, line:len()):find(char)
+		end_pos = line:len() - 1
+
+		if start_pos ~= nil then
+			start_pos = line:len() - start_pos - 1
+		end
+
+	-- If the cursor is somewhere in the middle
+	else
+		print("Middle")
+		local lhs = line:sub(1, cursor_col)
+		local rhs = line:sub(cursor_col + 2, line:len())
+
+		start_pos = lhs:reverse():find(char)
+		end_pos = rhs:find(char)
+
+		if start_pos ~= nil then
+			start_pos = lhs:len() - start_pos
+		end
+
+		if end_pos ~= nil then
+			end_pos = end_pos + cursor_col
+		end
+	end
+
+	return { start_pos, end_pos, line:len() }
+end
+
+local function select_range_on_this_line(range)
+	local line = vim.api.nvim_get_current_line()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local start_pos = range[1]
+	local end_pos = range[2]
+
+	print("Selecting range: " .. start_pos .. "," .. end_pos)
+
+	vim.api.nvim_win_set_cursor(0, { cursor_pos[1], start_pos })
+	vim.cmd("normal! v")
+	vim.api.nvim_win_set_cursor(0, { cursor_pos[1], end_pos })
+end
+
+map("n", "vi", function()
+	local range = find_chars_in_current_line()
+	if range[1] ~= nil and range[2] ~= nil then
+		select_range_on_this_line({ range[1] + 1, range[2] - 1 })
+	end
+end, { desc = "Visual In <Character> (exclusive)" })
+
+map("n", "vI", function()
+	local range = find_chars_in_current_line()
+	if range[1] ~= nil and range[2] ~= nil then
+		select_range_on_this_line({ range[1], range[2] })
+	end
+end, { desc = "Visual In <Character> (inclusive)" })
 
 -- Telescope
 local telescope = require("telescope.builtin")
