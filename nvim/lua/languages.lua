@@ -3,6 +3,27 @@
 --
 local module = {}
 
+local function find_matlab_installation()
+  -- Possible locations of matlab.exe, minus the /bin/matlab.exe at the end, with no trailing /
+  local locations = {
+    "/mnt/c/Program Files/MATLAB/R2023b",
+    "/mnt/d/MATLAB/R2023b"
+  }
+
+  for _,path in ipairs(locations) do
+    local full_path = path .. "/bin/matlab.exe"
+    -- If matlab.exe exists there, the path is valid
+    local f = io.open(full_path, 'r')
+    if f ~= nil then
+      io.close(f)
+      return path
+    end
+  end
+
+  print("None of the " .. locations:len() .. " provided MATLAB installation directories are valid")
+  return ""
+end
+
 module.Languages = {
 
 	vim = {
@@ -14,14 +35,14 @@ module.Languages = {
 		treesitter = { "yaml", "json", "xml" },
 	},
 	matlab = {
-		enabled = true,
+		enabled = false,
 		mason_install = { "matlab-language-server" },
 		mason_lspconfig = {
 			matlab_ls = {
 				settings = {
 					MATLAB = {
 						indexWorkspace = true,
-						installPath = "",
+						installPath = "_____________________",
 						matlabConnectionTiming = "onStart",
 						telemetry = false,
 					},
@@ -139,5 +160,9 @@ module.MasonEnsureInstalled = Flatten(CollectKeyed("mason_install"))
 module.MasonLspConfig = CollectLspConfig()
 module.ConformByFt = CollectKeyed("conform")
 module.TreesitterInstall = Flatten(CollectKeyed("treesitter"))
+
+if module.Languages.matlab.enabled then
+  module.Languages.matlab.mason_lspconfig.matlab_ls.settings.MATLAB.installPath = find_matlab_installation()
+end
 
 return module
