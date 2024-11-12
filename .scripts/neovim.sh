@@ -5,6 +5,8 @@ mkdir ~/.config
 ln -s ~/.dotfiles/nvim ~/.config/nvim
 
 # Neovim itself
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt update
 sudo apt-get -y install neovim
 
 # Core dependencies
