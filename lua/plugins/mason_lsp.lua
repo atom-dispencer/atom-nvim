@@ -38,14 +38,15 @@ local MASON_CONFIG = {
 --
 -- Configuration options for LSPs
 --
-local LSP_CONFIG = languages.MasonLspConfig
+local MASON_LSP_CONFIG = languages.MasonLspConfig
+local NVIM_LSP_CONFIG = languages.NvimLspConfig
 
 --
 -- Get all of the custom handlers for setting up LSP servers.
 -- If all you need is a bunch of options, pass them into the LSP_CONFIG table instead of messing with this.
 -- If you need to have a custom *behaviour* or different loading *flow*, add an entry here, but remember to add capabilities.
 --
-local get_custom_handlers = function()
+local get_mason_custom_handlers = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
@@ -53,7 +54,7 @@ local get_custom_handlers = function()
 
 		-- Default handler
 		function(server_name)
-			local config = LSP_CONFIG[server_name]
+			local config = MASON_LSP_CONFIG[server_name]
 
 			if config == nil then
 				print("Nil LSP config entry for " .. server_name)
@@ -72,6 +73,19 @@ local get_custom_handlers = function()
 	}
 end
 
+local nvim_lspconfig_setup = function()
+	local lspconfig = require("lspconfig")
+
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+	for server_name, config in pairs(NVIM_LSP_CONFIG) do
+		print(server_name)
+		config["capabilities"] = capabilities
+		lspconfig[server_name].setup(config)
+	end
+end
+
 -- Return the composite version for Lazy
 -- Loading order must be Mason > Mason LSP conf > Nvim LSP conf
 return {
@@ -79,6 +93,9 @@ return {
 	-- Neovim's default LSP configurations
 	{
 		"neovim/nvim-lspconfig",
+		config = function()
+			nvim_lspconfig_setup()
+		end,
 
 		dependencies = {
 			{
@@ -86,7 +103,7 @@ return {
 				config = function()
 					-- Setup {} must be present, even if empty.
 					require("mason-lspconfig").setup(MASONLSP_CONFIG)
-					require("mason-lspconfig").setup_handlers(get_custom_handlers())
+					require("mason-lspconfig").setup_handlers(get_mason_custom_handlers())
 				end,
 
 				dependencies = {

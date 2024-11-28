@@ -89,7 +89,7 @@ module.Languages = {
 	haskell = {
 		enabled = true,
 		mason_install = { "ormolu", "hlint", "haskell-debug-adapter" }, -- No HLS because it's installed seperately through GHCUP or NixOS
-		mason_lspconfig = {
+		nvim_lspconfig = {
 			hls = {
         -- Most defaults provided by lspconfig (cmd, filetypes, rootdir)
         settings = {
@@ -138,12 +138,26 @@ local function CollectKeyed(key)
 	return result
 end
 
- function CollectLspConfig()
+function CollectMasonLspConfig()
   local result = {}
 
   for lang,config in pairs(module.Languages) do
     if config.enabled and config["mason_lspconfig"] ~= nil then
       for lspname,lspconfig in pairs(config["mason_lspconfig"]) do
+        result[lspname] = lspconfig
+      end
+    end
+  end
+
+  return result
+end
+
+function CollectNvimLspConfig()
+  local result = {}
+
+  for lang,config in pairs(module.Languages) do
+    if config.enabled and config["nvim_lspconfig"] ~= nil then
+      for lspname,lspconfig in pairs(config["nvim_lspconfig"]) do
         result[lspname] = lspconfig
       end
     end
@@ -164,7 +178,8 @@ end
 
 
 module.MasonEnsureInstalled = Flatten(CollectKeyed("mason_install"))
-module.MasonLspConfig = CollectLspConfig()
+module.MasonLspConfig = CollectMasonLspConfig()
+module.NvimLspConfig = CollectNvimLspConfig()
 module.ConformByFt = CollectKeyed("conform")
 module.TreesitterInstall = Flatten(CollectKeyed("treesitter"))
 
