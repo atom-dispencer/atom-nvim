@@ -87,7 +87,7 @@ module.Languages = {
 		treesitter = { "elixir", "eex" },
 	},
 	haskell = {
-		enabled = false,
+		enabled = true,
 		mason_install = { "haskell-language-server", "ormolu", "hlint", "haskell-debug-adapter" },
 		mason_lspconfig = {
 			hls = {},
