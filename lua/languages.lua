@@ -88,7 +88,7 @@ module.Languages = {
 	},
 	haskell = {
 		enabled = true,
-		mason_install = { "haskell-language-server", "ormolu", "hlint", "haskell-debug-adapter" },
+		mason_install = { "ormolu", "hlint", "haskell-debug-adapter" }, -- No HLS because it's installed seperately through GHCUP or NixOS
 		mason_lspconfig = {
 			hls = {},
 		},
