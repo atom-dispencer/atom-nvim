@@ -88,7 +88,7 @@ module.Languages = {
 	},
 	haskell = {
 		enabled = true,
-		mason_install = { "ormolu", "hlint", "haskell-debug-adapter" }, -- No HLS because it's installed seperately through GHCUP or NixOS
+		mason_install = { "ormolu", "hlint" }, -- No HLS because it's installed seperately through GHCUP or NixOS
 		nvim_lspconfig = {
 			hls = {
         -- Most defaults provided by lspconfig (cmd, filetypes, rootdir)
