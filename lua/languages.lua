@@ -91,9 +91,7 @@ module.Languages = {
 		mason_install = { "ormolu", "hlint", "haskell-debug-adapter" }, -- No HLS because it's installed seperately through GHCUP or NixOS
 		mason_lspconfig = {
 			hls = {
-        cmd = { "haskell-language-server-wrapper", "--lsp" },
-        filetypes = { "haskell", "lhaskell" },
-        root_dir = require("lspconfig").util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml", ".git"),
+        -- Most defaults provided by lspconfig (cmd, filetypes, rootdir)
         settings = {
           haskell = {
             formattingProvider = "ormolu",
