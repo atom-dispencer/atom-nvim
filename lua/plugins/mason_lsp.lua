@@ -80,7 +80,6 @@ local nvim_lspconfig_setup = function()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 	for server_name, config in pairs(NVIM_LSP_CONFIG) do
-		print(server_name)
 		config["capabilities"] = capabilities
 		lspconfig[server_name].setup(config)
 	end
