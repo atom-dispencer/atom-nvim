@@ -55,6 +55,7 @@ local get_mason_custom_handlers = function()
 		-- Default handler
 		function(server_name)
 			local config = MASON_LSP_CONFIG[server_name]
+			print("  Running custom Mason LSPConfig handler for " .. server_name)
 
 			if config == nil then
 				print("Nil LSP config entry for " .. server_name)
@@ -74,12 +75,14 @@ local get_mason_custom_handlers = function()
 end
 
 local nvim_lspconfig_setup = function()
+	print("  Setting up all Neovim LSPConfig...")
 	local lspconfig = require("lspconfig")
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 	for server_name, config in pairs(NVIM_LSP_CONFIG) do
+		print("  Setting up " .. server_name)
 		config["capabilities"] = capabilities
 		lspconfig[server_name].setup(config)
 	end
