@@ -52,6 +52,7 @@ module.Languages = {
     nvim_lspconfig = {
       matlab_ls = {
         settings = {
+          cmd = "matlab-language-server --stdio",
           MATLAB = {
             indexWorkspace = true,
             installPath = "____will____be____filled____later____",
