@@ -50,14 +50,16 @@ module.Languages = {
 		-- 	},
 		-- },
     nvim_lspconfig = {
-      settings = {
-        MATLAB = {
-          indexWorkspace = true,
-          installPath = "_____________________",
-          matlabConnectionTiming = "onStart",
-          telemetry = false,
+      matlab_ls = {
+        settings = {
+          MATLAB = {
+            indexWorkspace = true,
+            installPath = "____will____be____filled____later____",
+            matlabConnectionTiming = "onStart",
+            telemetry = false,
+          },
         },
-      },
+      }
     }
 	},
 	lua = {
@@ -194,7 +196,7 @@ module.ConformByFt = CollectKeyed("conform")
 module.TreesitterInstall = Flatten(CollectKeyed("treesitter"))
 
 if module.Languages.matlab.enabled then
-  module.Languages.matlab.mason_lspconfig.matlab_ls.settings.MATLAB.installPath = find_matlab_installation()
+  module.Languages.matlab.nvim_lspconfig.matlab_ls.settings.MATLAB.installPath = find_matlab_installation()
 end
 
 return module
