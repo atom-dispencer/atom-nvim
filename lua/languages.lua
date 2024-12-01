@@ -35,20 +35,30 @@ module.Languages = {
 		treesitter = { "yaml", "json", "xml" },
 	},
 	matlab = {
-		enabled = false,
-		mason_install = { "matlab-language-server" },
-		mason_lspconfig = {
-			matlab_ls = {
-				settings = {
-					MATLAB = {
-						indexWorkspace = true,
-						installPath = "_____________________",
-						matlabConnectionTiming = "onStart",
-						telemetry = false,
-					},
-				},
-			},
-		},
+		enabled = true,
+		-- mason_install = { "matlab-language-server" },
+		-- mason_lspconfig = {
+		-- 	matlab_ls = {
+		-- 		settings = {
+		-- 			MATLAB = {
+		-- 				indexWorkspace = true,
+		-- 				installPath = "_____________________",
+		-- 				matlabConnectionTiming = "onStart",
+		-- 				telemetry = false,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
+    nvim_lspconfig = {
+      settings = {
+        MATLAB = {
+          indexWorkspace = true,
+          installPath = "_____________________",
+          matlabConnectionTiming = "onStart",
+          telemetry = false,
+        },
+      },
+    }
 	},
 	lua = {
 		enabled = true,
