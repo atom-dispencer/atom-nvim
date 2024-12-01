@@ -197,7 +197,9 @@ module.ConformByFt = CollectKeyed("conform")
 module.TreesitterInstall = Flatten(CollectKeyed("treesitter"))
 
 if module.Languages.matlab.enabled then
-  module.Languages.matlab.nvim_lspconfig.matlab_ls.settings.MATLAB.installPath = find_matlab_installation()
+  local matlab_install_path = find_matlab_installation();
+  module.Languages.matlab.nvim_lspconfig.matlab_ls.settings.MATLAB.installPath = matlab_install_path;
+  print("MATLAB found at: " .. matlab_install_path)
 end
 
 return module
