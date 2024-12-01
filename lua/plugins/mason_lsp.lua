@@ -1,4 +1,4 @@
--- LSP configuration
+local atom = require("../atom-nvim")
 local languages = require("../languages")
 
 --
@@ -55,12 +55,12 @@ local get_mason_custom_handlers = function()
 		-- Default handler
 		function(server_name)
 			local config = MASON_LSP_CONFIG[server_name]
-			print("  Running custom Mason LSPConfig handler for " .. server_name)
+			atom.log("Running custom Mason LSPConfig handler for " .. server_name)
 
 			if config == nil then
-				print("Nil LSP config entry for " .. server_name)
-				print(" > Make sure its installed AND configured.")
-				print(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
+				atom.log("Nil LSP config entry for " .. server_name)
+				atom.log(" > Make sure its installed AND configured.")
+				atom.log(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
 				return
 			end
 
@@ -75,14 +75,14 @@ local get_mason_custom_handlers = function()
 end
 
 local nvim_lspconfig_setup = function()
-	print("  Setting up all Neovim LSPConfig...")
+	atom.log("Starting Neovim LSPConfig setup...")
 	local lspconfig = require("lspconfig")
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 	for server_name, config in pairs(NVIM_LSP_CONFIG) do
-		print("  Setting up " .. server_name)
+		atom.log("Setting up Neovim LSPConfig for " .. server_name)
 		config["capabilities"] = capabilities
 		lspconfig[server_name].setup(config)
 	end

@@ -1,3 +1,4 @@
+local atom = require("atom-nvim")
 --
 -- Language configuration
 --
@@ -20,7 +21,7 @@ local function find_matlab_installation()
     end
   end
 
-  print("None of the " .. locations:len() .. " provided MATLAB installation directories are valid")
+  atom.log("None of the " .. locations:len() .. " provided MATLAB installation directories are valid")
   return ""
 end
 
@@ -199,7 +200,7 @@ module.TreesitterInstall = Flatten(CollectKeyed("treesitter"))
 if module.Languages.matlab.enabled then
   local matlab_install_path = find_matlab_installation();
   module.Languages.matlab.nvim_lspconfig.matlab_ls.settings.MATLAB.installPath = matlab_install_path;
-  print("MATLAB found at: " .. matlab_install_path)
+  atom.log("MATLAB found at: " .. matlab_install_path)
 end
 
 return module
