@@ -27,6 +27,14 @@ end
 
 module.Languages = {
 
+  cpp = {
+    -- Clang, Clangd, Clang-tools
+    enabled = true,
+    treesitter = { "cpp" },
+    nvim_lspconfig = {
+      clangd = {}
+    },
+  },
 	vim = {
 		enabled = true,
 		treesitter = { "vim", "vimdoc" },
