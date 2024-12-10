@@ -43,6 +43,14 @@ module.Languages = {
 		enabled = true,
 		treesitter = { "yaml", "json", "xml" },
 	},
+  julia = {
+    enabled = true,
+    treesitter = { "julia" },
+    mason_install = { "julia-lsp" },
+    mason_lspconfig = {
+      julials = {}
+    },
+  },
 	matlab = {
 		enabled = true,
 		-- mason_install = { "matlab-language-server" },
