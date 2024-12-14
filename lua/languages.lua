@@ -27,14 +27,6 @@ end
 
 module.Languages = {
 
-  openfoam = {
-    enabled = true,
-    treesitter = { "foam" },
-    mason_install = { "foam-language-server" },
-    nvim_lspconfig = {
-      foam_ls = {}
-    }
-  },
   cpp = {
     -- Clang, Clangd, Clang-tools
     enabled = true,
@@ -88,6 +80,14 @@ module.Languages = {
       }
     }
 	},
+  openfoam = {
+    enabled = true,
+    treesitter = { "foam" },
+    mason_install = { "foam-language-server" },
+    mason_lspconfig = {
+      foam_ls = {}
+    }
+  },
 	lua = {
 		enabled = true,
 		conform = { "stylua" },
