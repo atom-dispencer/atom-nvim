@@ -48,7 +48,7 @@ local NVIM_LSP_CONFIG = languages.NvimLspConfig
 --
 local get_mason_custom_handlers = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
 	return {
 
@@ -79,7 +79,7 @@ local nvim_lspconfig_setup = function()
 	local lspconfig = require("lspconfig")
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
 	for server_name, config in pairs(NVIM_LSP_CONFIG) do
 		atom.log("Setting up Neovim LSPConfig for " .. server_name)
