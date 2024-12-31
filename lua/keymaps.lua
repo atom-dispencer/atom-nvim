@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+-- Terminal
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Return to normal mode from terminal mode" })
+
 -- Misc
 local config_dir = vim.fn.stdpath("config")
 map("n", ";", ":", { desc = "CMD enter command mode" })
