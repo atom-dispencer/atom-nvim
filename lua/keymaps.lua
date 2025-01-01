@@ -152,6 +152,8 @@ map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 map("n", "<leader>of", vim.diagnostic.open_float, { desc = "Open floating diagnostic panel" })
+map("v", "cm", "gc", { desc = "Toggle comment using visual mode / a motion", remap = true })
+map("n", "cm", "gcc", { desc = "Toggle a line comment", remap = true })
 
 -- Formatting
 map("n", "<C-F>", function()
