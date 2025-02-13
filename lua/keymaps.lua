@@ -5,9 +5,7 @@ local map = vim.keymap.set
 -- Terminal
 --
 --
-local floaterminal = require("floaterminal")
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Return to normal mode from terminal mode" })
-map("n", "<C-x>", floaterminal.toggle_terminal, { desc = "Toggle a floating terminal window" })
 
 --
 --
