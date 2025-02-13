@@ -18,5 +18,3 @@ require("lazy").setup("plugins")
 
 -- Set up keymaps (may require plugin access)
 require("keymaps")
-
-vim.cmd("Oil")
