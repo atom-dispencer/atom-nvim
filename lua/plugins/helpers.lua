@@ -2,6 +2,11 @@
 
 return {
 
+	-- What are you doing? Teaching...
+	{
+		"ThePrimeagen/vim-be-good",
+	},
+
 	-- Keybinds help
 	{
 		"folke/which-key.nvim",
