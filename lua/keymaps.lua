@@ -15,7 +15,6 @@ map("n", "<C-x>", floaterminal.toggle_terminal, { desc = "Toggle a floating term
 --
 --
 local config_dir = vim.fn.stdpath("config")
-map("n", ";", ":", { desc = "CMD enter command mode" })
 map("n", "config", "<CMD>Oil " .. config_dir .. "/<CR>", { desc = "Open Neovim's configuration directory." })
 map("n", "<C-s>", "<CMD>update<CR>", { desc = "Save (Update) the current buffer.", silent = true })
 
