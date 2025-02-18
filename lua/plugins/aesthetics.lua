@@ -1,14 +1,34 @@
 return {
 
 	-- Colorscheme
+
+	-- Gruvbox
+	-- {
+	-- 	"ellisonleao/gruvbox.nvim",
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("gruvbox").setup({})
+	-- 	end,
+	-- },
+
+	-- Leaf
 	{
-		"ellisonleao/gruvbox.nvim",
+		"daschw/leaf.nvim",
 		priority = 1000,
 		opts = {},
 		config = function()
-			require("gruvbox").setup({})
-			vim.o.background = "dark"
-			vim.cmd([[colorscheme gruvbox]])
+			require("leaf").setup({})
 		end,
 	},
+
+	-- Everforest
+	-- {
+	-- 	"neanias/everforest-nvim",
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("everforest").setup({})
+	-- 	end,
+	-- },
 }
