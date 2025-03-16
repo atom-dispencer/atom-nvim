@@ -50,24 +50,41 @@ local get_mason_custom_handlers = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
+	-- Border for <S-k> information box
+	local border = {
+		{ "╭", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╮", "FloatBorder" },
+		{ "│", "FloatBorder" },
+		{ "╯", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╰", "FloatBorder" },
+		{ "│", "FloatBorder" },
+	}
+
+	local other_handlers = {
+		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+	}
+
 	return {
 
 		-- Default handler
 		function(server_name)
-			local config = MASON_LSP_CONFIG[server_name]
+			local extra_config = MASON_LSP_CONFIG[server_name]
 			atom.log("Running custom Mason LSPConfig handler for " .. server_name)
 
-			if config == nil then
+			if extra_config == nil then
 				atom.log("Nil LSP config entry for " .. server_name)
 				atom.log(" > Make sure its installed AND configured.")
 				atom.log(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
 				return
 			end
 
-			config["capabilities"] = capabilities
+			extra_config["capabilities"] = capabilities
 			-- config.on_attach = on_attach
 			-- config.on_init = on_init
-			require("lspconfig")[server_name].setup(config)
+			require("lspconfig")[server_name].setup({ config = extra_config, handlers = other_handlers })
 		end,
 		-- Optionally, can add custom handlers here by key.
 		-- See mason-lspconfig-dynamic-server-setup
