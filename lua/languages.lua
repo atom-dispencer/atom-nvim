@@ -21,7 +21,7 @@ local function find_matlab_installation()
     end
   end
 
-  atom.log("None of the " .. locations:len() .. " provided MATLAB installation directories are valid")
+  atom.log("None of the " .. #locations .. " provided MATLAB installation directories are valid")
   return ""
 end
 
