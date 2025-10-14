@@ -11,3 +11,5 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.fileencoding = "utf-8"
+
+vim.opt.winborder = "rounded"

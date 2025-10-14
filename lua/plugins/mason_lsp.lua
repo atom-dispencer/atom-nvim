@@ -46,54 +46,53 @@ local NVIM_LSP_CONFIG = languages.NvimLspConfig
 -- If all you need is a bunch of options, pass them into the LSP_CONFIG table instead of messing with this.
 -- If you need to have a custom *behaviour* or different loading *flow*, add an entry here, but remember to add capabilities.
 --
-local get_mason_custom_handlers = function()
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
-
-	-- Border for <S-k> information box
-	local border = {
-		{ "╭", "FloatBorder" },
-		{ "─", "FloatBorder" },
-		{ "╮", "FloatBorder" },
-		{ "│", "FloatBorder" },
-		{ "╯", "FloatBorder" },
-		{ "─", "FloatBorder" },
-		{ "╰", "FloatBorder" },
-		{ "│", "FloatBorder" },
-	}
-
-	local other_handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	}
-
-	return {
-
-		-- Default handler
-		function(server_name)
-			local extra_config = MASON_LSP_CONFIG[server_name]
-			atom.log("Running custom Mason LSPConfig handler for " .. server_name)
-
-			if extra_config == nil then
-				atom.log("Nil LSP config entry for " .. server_name)
-				atom.log(" > Make sure its installed AND configured.")
-				atom.log(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
-				return
-			end
-
-			extra_config["capabilities"] = capabilities
-			-- config.on_attach = on_attach
-			-- config.on_init = on_init
-			require("lspconfig")[server_name].setup({ config = extra_config, handlers = other_handlers })
-		end,
-		-- Optionally, can add custom handlers here by key.
-		-- See mason-lspconfig-dynamic-server-setup
-	}
-end
+-- local get_mason_custom_handlers = function()
+-- 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- 	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+--
+-- 	-- Border for <S-k> information box
+-- 	local border = {
+-- 		{ "╭", "FloatBorder" },
+-- 		{ "─", "FloatBorder" },
+-- 		{ "╮", "FloatBorder" },
+-- 		{ "│", "FloatBorder" },
+-- 		{ "╯", "FloatBorder" },
+-- 		{ "─", "FloatBorder" },
+-- 		{ "╰", "FloatBorder" },
+-- 		{ "│", "FloatBorder" },
+-- 	}
+--
+-- 	local other_handlers = {
+-- 		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+-- 		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+-- 	}
+--
+-- 	return {
+--
+-- 		-- Default handler
+-- 		function(server_name)
+-- 			local extra_config = MASON_LSP_CONFIG[server_name]
+-- 			atom.log("Running custom Mason LSPConfig handler for " .. server_name)
+--
+-- 			if extra_config == nil then
+-- 				atom.log("Nil LSP config entry for " .. server_name)
+-- 				atom.log(" > Make sure its installed AND configured.")
+-- 				atom.log(" > If this is the first time, restart Neovim as MasonToolsInstaller may clean the rogue LSP")
+-- 				return
+-- 			end
+--
+-- 			extra_config["capabilities"] = capabilities
+-- 			-- config.on_attach = on_attach
+-- 			-- config.on_init = on_init
+-- 			require("lspconfig")[server_name].setup({ config = extra_config, handlers = other_handlers })
+-- 		end,
+-- 		-- Optionally, can add custom handlers here by key.
+-- 		-- See mason-lspconfig-dynamic-server-setup
+-- 	}
+-- end
 
 local nvim_lspconfig_setup = function()
 	atom.log("Starting Neovim LSPConfig setup...")
-	local lspconfig = require("lspconfig")
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
@@ -101,7 +100,8 @@ local nvim_lspconfig_setup = function()
 	for server_name, config in pairs(NVIM_LSP_CONFIG) do
 		atom.log("Setting up Neovim LSPConfig for " .. server_name)
 		config["capabilities"] = capabilities
-		lspconfig[server_name].setup(config)
+		-- vim.lsp.enable(server_name) -- Not necessary as 'automatic_enable' is on by default
+		vim.lsp.config(server_name, config)
 	end
 end
 
@@ -120,9 +120,7 @@ return {
 			{
 				"williamboman/mason-lspconfig.nvim",
 				config = function()
-					-- Setup {} must be present, even if empty.
 					require("mason-lspconfig").setup(MASONLSP_CONFIG)
-					require("mason-lspconfig").setup_handlers(get_mason_custom_handlers())
 				end,
 
 				dependencies = {
