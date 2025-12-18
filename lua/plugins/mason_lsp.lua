@@ -6,15 +6,15 @@ local languages = require("../languages")
 -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 --
 local TOOLER_CONFIG = {
-	ensure_installed = languages.MasonEnsureInstalled,
+  ensure_installed = languages.MasonEnsureInstalled,
 
-	-- Name integrations with the rest of the Mason ecosystem.
-	-- I only want to use Mason package names for consistency, so disabled them
-	integrations = {
-		["mason-lspconfig"] = false,
-		["mason-null-ls"] = false,
-		["mason-nvim-dap"] = false,
-	},
+  -- Name integrations with the rest of the Mason ecosystem.
+  -- I only want to use Mason package names for consistency, so disabled them
+  integrations = {
+    ["mason-lspconfig"] = false,
+    ["mason-null-ls"] = false,
+    ["mason-nvim-dap"] = false,
+  },
 }
 
 --
@@ -26,13 +26,13 @@ local MASONLSP_CONFIG = {}
 -- Configuration for Mason itself
 --
 local MASON_CONFIG = {
-	ui = {
-		icons = {
-			package_installed = "✓",
-			package_pending = "",
-			package_uninstalled = "",
-		},
-	},
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "",
+      package_uninstalled = "",
+    },
+  },
 }
 
 --
@@ -92,61 +92,61 @@ local NVIM_LSP_CONFIG = languages.NvimLspConfig
 -- end
 
 local nvim_lspconfig_setup = function()
-	atom.log("Starting Neovim LSPConfig setup...")
+  atom.log("Starting Neovim LSPConfig setup...")
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
-	for server_name, config in pairs(NVIM_LSP_CONFIG) do
-		atom.log("Setting up Neovim LSPConfig for " .. server_name)
-		config["capabilities"] = capabilities
-		-- vim.lsp.enable(server_name) -- Not necessary as 'automatic_enable' is on by default
-		vim.lsp.config(server_name, config)
-	end
+  for server_name, config in pairs(NVIM_LSP_CONFIG) do
+    atom.log("Setting up Neovim LSPConfig for " .. server_name)
+    config["capabilities"] = capabilities
+    vim.lsp.enable(server_name) -- Didn't used to be necessary but I think 'automatic_enable' is no longer on by default
+    vim.lsp.config(server_name, config)
+  end
 end
 
 -- Return the composite version for Lazy
 -- Loading order must be Mason > Mason LSP conf > Nvim LSP conf
 return {
 
-	-- Neovim's default LSP configurations
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			nvim_lspconfig_setup()
-		end,
+  -- Neovim's default LSP configurations
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      nvim_lspconfig_setup()
+    end,
 
-		dependencies = {
-			{
-				"williamboman/mason-lspconfig.nvim",
-				config = function()
-					require("mason-lspconfig").setup(MASONLSP_CONFIG)
-				end,
+    dependencies = {
+      {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+          require("mason-lspconfig").setup(MASONLSP_CONFIG)
+        end,
 
-				dependencies = {
-					{
-						"williamboman/mason.nvim",
-						config = function()
-							require("mason").setup(MASON_CONFIG)
-						end,
-					},
-					{
-						"folke/neodev.nvim",
-						config = function()
-							require("neodev").setup({})
-						end,
-					},
-				},
-			},
-		},
-	},
+        dependencies = {
+          {
+            "williamboman/mason.nvim",
+            config = function()
+              require("mason").setup(MASON_CONFIG)
+            end,
+          },
+          {
+            "folke/neodev.nvim",
+            config = function()
+              require("neodev").setup({})
+            end,
+          },
+        },
+      },
+    },
+  },
 
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = { "williamboman/mason.nvim" },
-		config = function()
-			require("mason-tool-installer").setup(TOOLER_CONFIG)
-			vim.fn.execute("MasonToolsClean", true)
-		end,
-	},
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup(TOOLER_CONFIG)
+      vim.fn.execute("MasonToolsClean", true)
+    end,
+  },
 }
